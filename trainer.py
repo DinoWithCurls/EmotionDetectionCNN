@@ -31,9 +31,14 @@ model.add(Dropout(0.25))
 
 model.add(Conv2D(128, kernel_size=(3,3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Conv2D(128, kernel_size=(3,3), activation='relu'))
+model.add(Conv2D(256, kernel_size=(3,3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.25))
+
+model.add(Conv2D(512, kernel_size=(3,3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Dropout(0.25))
+
 #check dropout and dense, activation methods
 model.add(Flatten())
 model.add(Dense(1024, activation='relu'))
@@ -45,7 +50,7 @@ model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=0.00
 model_train = model.fit_generator(
     trainer_generator,
     steps_per_epoch=31805//64,
-    epochs=100,
+    epochs=300,
     validation_data=test_generator,
     validation_steps=7178//64)
 #steps_per_epoch = no. of files in the training dataset // batch size
