@@ -1,1 +1,4 @@
 imgDataset/
+build/
+dist/
+./detector.spec
