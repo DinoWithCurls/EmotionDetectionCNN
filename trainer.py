@@ -3,6 +3,7 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten
 from tensorflow.keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
+import matplotlib.pyplot as plt
 
 train_data = ImageDataGenerator(rescale=1./255)
 test_data = ImageDataGenerator(rescale=1./255)
@@ -47,12 +48,26 @@ model.add(Dense(7, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=0.0001, decay=1e-6), metrics=['accuracy'])
 
-model_train = model.fit_generator(
+model_train = model.fit(
     trainer_generator,
     steps_per_epoch=31805//64,
-    epochs=300,
+    epochs=100,
     validation_data=test_generator,
     validation_steps=7178//64)
+
+
+
+loss_train = model_train.history['accuracy']
+loss_val = model_train.history['val_accuracy']
+epochs = range(1,101)
+plt.plot(epochs, loss_train, 'g', label='Training Accuracy')
+plt.plot(epochs, loss_val, 'b', label='Validation Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
+
 #steps_per_epoch = no. of files in the training dataset // batch size
 #validation_steps = no. of files in the test dataset // batch size
 jsonmodel = model.to_json()
