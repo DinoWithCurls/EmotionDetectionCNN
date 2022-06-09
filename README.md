@@ -14,8 +14,6 @@ Emotion Detection in Humans using CNN
 1. Python
 2. OpenCV
 3. Tensorflow
-4. Flask
-5. Frontend tech(will be decided later on)
 
 
 ## Things to write stuff and make a presentation on:
